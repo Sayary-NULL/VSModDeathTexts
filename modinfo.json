@@ -6,6 +6,7 @@
 
   "description": "Resetting the text for death",
   "authors": [ "Sayary" ],
+  "contributors": [ "twistr_game", "ZigTheHedge" ],
 
   "dependencies": {
     "game": "1.12.14"
