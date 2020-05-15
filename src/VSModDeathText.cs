@@ -5,32 +5,33 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Server;
 using Newtonsoft.Json;
 using Vintagestory.API.Config;
+using System.Collections.Generic;
 
 namespace VSModDeathText
 {
     public class DeathTexts
     {
-        public string Void { get; set; }
+        public List<string> Void { get; set; }
 
-        public string Gravity { get; set; }
+        public List<string> Gravity { get; set; }
 
-        public string Fire { get; set; }
+        public List<string> Fire { get; set; }
 
-        public string BluntAttack { get; set; }
+        public List<string> BluntAttack { get; set; }
 
-        public string SlashingAttack { get; set; }
+        public List<string> SlashingAttack { get; set; }
 
-        public string PiercingAttack { get; set; }
+        public List<string> PiercingAttack { get; set; }
 
-        public string Suffocation { get; set; }
+        public List<string> Suffocation { get; set; }
 
-        public string Heal { get; set; }
+        public List<string> Heal { get; set; }
 
-        public string Poison { get; set; }
+        public List<string> Poison { get; set; }
 
-        public string Hunger { get; set; }
+        public List<string> Hunger { get; set; }
 
-        public string Crushing { get; set; }
+        public List<string> Crushing { get; set; }
     }
 
     public class ModDeathTexts : ModSystem
@@ -38,6 +39,8 @@ namespace VSModDeathText
         ICoreServerAPI SAPI;
 
         DeathTexts deathTexts;
+
+        Random rand;
 
         public override bool ShouldLoad(EnumAppSide forSide)
         {
@@ -50,6 +53,8 @@ namespace VSModDeathText
 
             string Path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\VintagestoryData\ModConfig\DeathTexts.json";
 
+            rand = new Random();
+
             try
             {
                 if(!System.IO.File.Exists(Path))
@@ -57,7 +62,9 @@ namespace VSModDeathText
                     using (StreamWriter write = new StreamWriter(Path, false, Encoding.UTF8))
                     {
                         DeathTexts deathTexts = new DeathTexts();
-                        deathTexts.Void = "it's not worth the effort.\r\n {Name}, isn't it?)";
+                        deathTexts.Void = new List<string>();
+                        deathTexts.Void.Add("it's not worth the effort.\r\n {Name}, isn't it?)");
+                        deathTexts.Void.Add("it wasn't worth it!");
                         string json = JsonConvert.SerializeObject(deathTexts);
                         write.Write(json);
                     }
@@ -86,40 +93,100 @@ namespace VSModDeathText
                 switch (damageSource.Type)
                 {
                     case EnumDamageType.Gravity:
-                        outstr = deathTexts.Gravity;
+                        if (deathTexts.Gravity != null)
+                        {
+                            int size = deathTexts.Gravity.Count;
+                            int index = rand.Next(size);
+                            outstr = deathTexts.Gravity[index];
+                        }
                         break;
                     case EnumDamageType.Fire:
-                        outstr = deathTexts.Fire;
+                        if (deathTexts.Fire != null)
+                        {
+                            int size = deathTexts.Fire.Count;
+                            int index = rand.Next(size);
+                            outstr = deathTexts.Fire[index];
+                        }
                         break;
                     case EnumDamageType.BluntAttack:
-                        outstr = deathTexts.BluntAttack;
+                        if (deathTexts.BluntAttack != null)
+                        {
+                            int size = deathTexts.BluntAttack.Count;
+                            int index = rand.Next(size);
+                            outstr = deathTexts.BluntAttack[index];
+                        }
                         break;
                     case EnumDamageType.SlashingAttack:
-                        outstr = deathTexts.SlashingAttack;
+                        if (deathTexts.SlashingAttack != null)
+                        {
+                            int size = deathTexts.SlashingAttack.Count;
+                            int index = rand.Next(size);
+                            outstr = deathTexts.SlashingAttack[index];
+                        }
                         break;
                     case EnumDamageType.PiercingAttack:
-                        outstr = deathTexts.PiercingAttack;
+                        if (deathTexts.PiercingAttack != null)
+                        {
+                            int size = deathTexts.PiercingAttack.Count;
+                            int index = rand.Next(size);
+                            outstr = deathTexts.PiercingAttack[index];
+                        }
                         break;
                     case EnumDamageType.Suffocation:
-                        outstr = deathTexts.Suffocation;
+                        if (deathTexts.Suffocation != null)
+                        {
+                            int size = deathTexts.Suffocation.Count;
+                            int index = rand.Next(size);
+                            outstr = deathTexts.Suffocation[index];
+                        }
                         break;
                     case EnumDamageType.Heal:
-                        outstr = deathTexts.Heal;
+                        if (deathTexts.Heal != null)
+                        {
+                            int size = deathTexts.Heal.Count;
+                            int index = rand.Next(size);
+                            outstr = deathTexts.Heal[index];
+                        }
                         break;
                     case EnumDamageType.Poison:
-                        outstr = deathTexts.Poison;
+                        if (deathTexts.Poison != null)
+                        {
+                            int size = deathTexts.Poison.Count;
+                            int index = rand.Next(size);
+                            outstr = deathTexts.Poison[index];
+                        }
                         break;
                     case EnumDamageType.Hunger:
-                        outstr = deathTexts.Hunger;
+                        if (deathTexts.Hunger != null)
+                        {
+                            int size = deathTexts.Hunger.Count;
+                            int index = rand.Next(size);
+                            outstr = deathTexts.Hunger[index];
+                        }
                         break;
                     case EnumDamageType.Crushing:
-                        outstr = deathTexts.Crushing;
+                        if(deathTexts.Crushing != null)
+                        {
+                            int size = deathTexts.Crushing.Count;
+                            int index = rand.Next(size);
+                            outstr = deathTexts.Crushing[index];
+                        }
                         break;
                     default:
-                        break;
+                        {
+                            int size = deathTexts.Void.Count;
+                            int index = rand.Next(size);
+                            outstr = deathTexts.Void[index];
+                            break;
+                        }
                 }
             }
-            else outstr = deathTexts.Void;
+            else
+            {
+                int size = deathTexts.Void.Count;
+                int index = rand.Next(size);
+                outstr = deathTexts.Void[index];
+            }
 
             if (outstr == null)
                 return;
