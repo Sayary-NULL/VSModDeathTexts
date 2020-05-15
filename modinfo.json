@@ -1,0 +1,13 @@
+﻿{
+  "type": "code",
+  "name": "VSModDeathTexts",
+  "modid": "deathtexts",
+  "version": "1.0.0",
+
+  "description": "Resetting the text for death",
+  "authors": [ "Sayary" ],
+
+  "dependencies": {
+    "game": "1.12.14"
+  }
+}
